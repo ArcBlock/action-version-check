@@ -1,6 +1,6 @@
 {
   "name": "action-version-check",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Check if the current version is compliant with the specification",
   "main": "index.js",
   "scripts": {
