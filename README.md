@@ -19,7 +19,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: action-version-check@master
+      - uses: Arcblock/action-version-check@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
