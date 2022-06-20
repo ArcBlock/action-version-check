@@ -35,10 +35,16 @@ const check = ({ prTitle, currentVersion, nextVersion }) => {
 async function run() {
   try {
     const contextPullRequest = github.context.payload.pull_request;
+
     if (!contextPullRequest) {
       throw new Error(
         "This action can only be invoked in `pull_request_target` or `pull_request` events. Otherwise the pull request can't be inferred."
       );
+    }
+
+    if(contextPullRequest.title.includes('[skip version]')) {
+      core.info('Version check is skipped because PR title contains [skip version].');
+      return;
     }
 
     const baseSHA = contextPullRequest.base.sha;
