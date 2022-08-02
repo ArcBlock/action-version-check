@@ -34,7 +34,7 @@ describe('check', () => {
   test('should throw error if updated the major version without [release-major] in PR title', () => {
     expect(() =>
       check({ prTitle: 'test', currentVersion: '1.0.1', nextVersion: '2.0.0' })
-    ).toThrow(/does not contain \[release-major\]/i);
+    ).toThrow('If the PR title does not contain [release-major], the major version number cannot be updated');
 
     expect(() =>
       check({
@@ -42,7 +42,7 @@ describe('check', () => {
         currentVersion: '1.0.1',
         nextVersion: '2.1.0',
       })
-    ).toThrow(/does not contain \[release-major\]/i);
+    ).toThrow('If the PR title does not contain [release-major], the major version number cannot be updated');
   });
 
   test('should throw error if updated the minor version without [release-minor] in PR title', () => {

@@ -22,7 +22,7 @@ const check = ({ prTitle, currentVersion, nextVersion }) => {
   }
 
   if (diffName === 'minor' && !prTitle.includes('[release-minor]')) {
-    throw new Error('If the PR title does not contain [release-minor], the major version number cannot be updated');
+    throw new Error('If the PR title does not contain [release-minor], the minor version number cannot be updated');
   }
 
   const diff = Number(semver[diffName](nextVersion)) - Number(semver[diffName](currentVersion));
