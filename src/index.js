@@ -42,7 +42,13 @@ async function run() {
       );
     }
 
-    if(contextPullRequest.title.includes('[skip version]')) {
+    const targetBranch = core.getInput('target-branch');
+    if (targetBranch && contextPullRequest.base.ref !== targetBranch) {
+      core.info("Version check is skipped because the PR's target branch is not the setted");
+      return;
+    }
+
+    if (contextPullRequest.title.includes('[skip version]')) {
       core.info('Version check is skipped because PR title contains [skip version].');
       return;
     }
