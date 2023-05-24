@@ -65,7 +65,7 @@ async function run() {
 
     let workingDirectory = core.getInput('working-directory') || '/';
 
-    workingDirectory = path.join('', workingDirectory);
+    workingDirectory = path.join('/', workingDirectory, '/');
 
     const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}${workingDirectory}version`;
     core.info(`current version url: ${currentVersionURL}`);
