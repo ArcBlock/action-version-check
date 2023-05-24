@@ -62,17 +62,14 @@ async function run() {
       headers.Authorization = `token ${token}`;
     }
 
-    let workingDirectory = core.getInput('working-directory') || '';
-
-    if(workingDirectory !== ''){
-      if (!workingDirectory.startsWith("/")) {
-        workingDirectory = "/" + workingDirectory;
-      }
-      if (!workingDirectory.endsWith("/")) {
-        workingDirectory = workingDirectory + "/";
-      }
-    }else{
-      workingDirectory = "/";
+    let workingDirectory = core.getInput('working-directory') || '/';
+ 
+    if (!workingDirectory.startsWith("/")) {
+      workingDirectory = "/" + workingDirectory;
+    }
+    
+    if (!workingDirectory.endsWith("/")) {
+      workingDirectory = workingDirectory + "/";
     }
 
     const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}${workingDirectory}version`;
