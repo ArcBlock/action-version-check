@@ -64,7 +64,7 @@ async function run() {
 
     let workingDirectory = core.getInput('working-directory') || '';
 
-    if(workingDirectory){
+    if(workingDirectory !== ''){
       if (!workingDirectory.startsWith("/")) {
         workingDirectory = "/" + workingDirectory;
       }
