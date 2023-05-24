@@ -2,6 +2,7 @@ const { default: axios } = require('axios');
 const core = require('@actions/core');
 const github = require('@actions/github');
 const semver = require('semver');
+const path = require('path');
 
 const check = ({ prTitle, currentVersion, nextVersion }) => {
   if (!semver.valid(currentVersion)) {
@@ -63,14 +64,8 @@ async function run() {
     }
 
     let workingDirectory = core.getInput('working-directory') || '/';
- 
-    if (!workingDirectory.startsWith("/")) {
-      workingDirectory = "/" + workingDirectory;
-    }
-    
-    if (!workingDirectory.endsWith("/")) {
-      workingDirectory = workingDirectory + "/";
-    }
+
+    workingDirectory = path.join('', workingDirectory);
 
     const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}${workingDirectory}version`;
     core.info(`current version url: ${currentVersionURL}`);
