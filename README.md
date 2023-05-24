@@ -22,6 +22,8 @@ jobs:
       - uses: Arcblock/action-version-check@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          working-directory: ''
 ```
 
 ## Rules

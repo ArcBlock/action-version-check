@@ -1,6 +1,10 @@
 name: action-version-check
 author: zhenqiang <zhenqiang@arcblock.io>
 description: Check if the current version is compliant with the specification.
+inputs:
+  working-directory:
+    description: "The working directory of the version file, default is '' means the root directory. If you use monorepo, you can set it to the subdirectory of the monorepo, such as 'blocklets/core'. "
+    required: false
 runs:
   using: 'node16'
   main: 'dist/index.js'
