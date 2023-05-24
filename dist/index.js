@@ -15599,6 +15599,7 @@ const { default: axios } = __nccwpck_require__(6545);
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const semver = __nccwpck_require__(1383);
+const path = __nccwpck_require__(1017);
 
 const check = ({ prTitle, currentVersion, nextVersion }) => {
   if (!semver.valid(currentVersion)) {
@@ -15660,15 +15661,8 @@ async function run() {
     }
 
     let workingDirectory = core.getInput('working-directory') || '/';
-    
-    
-    if (!workingDirectory.startsWith("/")) {
-      workingDirectory = "/" + workingDirectory;
-    }
-    
-    if (!workingDirectory.endsWith("/")) {
-      workingDirectory = workingDirectory + "/";
-    }
+
+    workingDirectory = path.join('', workingDirectory);
 
     const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}${workingDirectory}version`;
     core.info(`current version url: ${currentVersionURL}`);
