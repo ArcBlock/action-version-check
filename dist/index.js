@@ -15659,14 +15659,25 @@ async function run() {
       headers.Authorization = `token ${token}`;
     }
 
-    const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}/version`;
+    let workingDirectory = core.getInput('working-directory') || '/';
+    
+    
+    if (!workingDirectory.startsWith("/")) {
+      workingDirectory = "/" + workingDirectory;
+    }
+    
+    if (!workingDirectory.endsWith("/")) {
+      workingDirectory = workingDirectory + "/";
+    }
+
+    const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}${workingDirectory}version`;
     core.info(`current version url: ${currentVersionURL}`);
     let { data: currentVersion } = await axios.get(currentVersionURL, {
       headers,
     });
     currentVersion = currentVersion.toString().trim();
 
-    const nextVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${headSHA}/version`;
+    const nextVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${headSHA}${workingDirectory}version`;
     core.info(`next version url: ${nextVersionURL}`);
     let { data: nextVersion } = await axios.get(nextVersionURL, {
       headers,
