@@ -69,9 +69,20 @@ async function run() {
 
     const currentVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${baseSHA}${workingDirectory}version`;
     core.info(`current version url: ${currentVersionURL}`);
-    let { data: currentVersion } = await axios.get(currentVersionURL, {
-      headers,
-    });
+    let { data: currentVersion } = await axios
+      .get(currentVersionURL, {
+        headers,
+      })
+      .catch((error) => {
+        // if status code 404, old version file is not exist, setup version to 0.0.0
+        if (error.response && error.response.status === 404) {
+          return {
+            data: '0.0.0',
+          };
+        }
+        throw error;
+      });
+
     currentVersion = currentVersion.toString().trim();
 
     const nextVersionURL = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${headSHA}${workingDirectory}version`;
